@@ -1,0 +1,7 @@
+# sample_file, true_song, start_s, length_s -- for your own reference only,
+# not read by the app.
+sample1.wav,I Want It All,17.4,12
+sample2.wav,Don_t Stop Me Now,110.3,12
+sample3.wav,Killer Queen,61.8,12
+sample4.wav,Under Pressure,13.7,12
+sample5.wav,Back In The U.S.S.R.,77.6,12
