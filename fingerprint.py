@@ -14,10 +14,6 @@ def pretty_title(name):
     return s.title() if s == s.lower() or s == s.upper() else s
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> fa349a5 (Cap uploaded query length to prevent server overload)
 def compute_spectrogram(signal, sr, window_seconds=0.025, overlap_ratio=0.5):
     nperseg = int(window_seconds * sr)
     nperseg = max(nperseg, 16)
