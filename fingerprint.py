@@ -9,11 +9,15 @@ from scipy.ndimage import maximum_filter, generate_binary_structure, iterate_str
 
 def pretty_title(name):
     s = name.replace("_", " ").replace("-", " ")
-    s = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", " ", s)  # camelCase -> camel Case
+    s = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", " ", s)  
     s = re.sub(r"\s+", " ", s).strip()
     return s.title() if s == s.lower() or s == s.upper() else s
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> fa349a5 (Cap uploaded query length to prevent server overload)
 def compute_spectrogram(signal, sr, window_seconds=0.025, overlap_ratio=0.5):
     nperseg = int(window_seconds * sr)
     nperseg = max(nperseg, 16)
@@ -44,7 +48,7 @@ def peaks_to_constellation(peaks, f, t):
 
 
 def generate_paired_hashes(constellation, fan_value=8, min_dt=0.0, max_dt=4.0):
-    constellation = sorted(constellation, key=lambda p: p[1])  # sort by time
+    constellation = sorted(constellation, key=lambda p: p[1]) 
     hashes = []
     n = len(constellation)
     for i in range(n):

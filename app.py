@@ -39,7 +39,7 @@ div[data-testid="stMetricValue"] { color: #2dd4bf; }
 """, unsafe_allow_html=True)
 
 
-# --------------------------------------------------------------------------
+
 @st.cache_resource
 def load_database():
     if not os.path.exists(DB_PATH):
@@ -53,16 +53,21 @@ def load_database():
         obj = pickle.load(fh)
     return obj["db"], obj["sr"]
 
+MAX_QUERY_SECONDS = 30  
 
 def load_audio_bytes(file_bytes, target_sr):
-   
+    
     sig, sr = sf.read(io.BytesIO(file_bytes), always_2d=False)
     if sig.ndim > 1:
         sig = sig.mean(axis=1)
     sig = sig.astype(np.float32)
     if sr != target_sr:
         sig = librosa.resample(sig, orig_sr=sr, target_sr=target_sr)
+    max_samples = int(MAX_QUERY_SECONDS * target_sr)
+    if len(sig) > max_samples:
+        sig = sig[:max_samples]
     return sig
+
 
 
 def list_sample_files():
