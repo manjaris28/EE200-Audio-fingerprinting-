@@ -14,9 +14,6 @@ def pretty_title(name):
     return s.title() if s == s.lower() or s == s.upper() else s
 
 
-# --------------------------------------------------------------------------
-# 1. Spectrogram
-# --------------------------------------------------------------------------
 def compute_spectrogram(signal, sr, window_seconds=0.025, overlap_ratio=0.5):
     nperseg = int(window_seconds * sr)
     nperseg = max(nperseg, 16)
@@ -60,7 +57,7 @@ def generate_paired_hashes(constellation, fan_value=8, min_dt=0.0, max_dt=4.0):
                 continue
             if dt > max_dt:
                 break
-            h = (round(f1), round(f2), round(dt * 100))  # dt quantized to 10ms
+            h = (round(f1), round(f2), round(dt * 100)) 
             hashes.append((h, t1))
             count += 1
             if count >= fan_value:
@@ -141,16 +138,7 @@ class Database:
         return best_song, ranked[:top_k], offsets_per_song, best_offset
 
     def identify(self, query_hash_list, top_k=5, min_votes=None, min_margin=None):
-        """
-        High-level match with a confidence threshold applied. Returns a dict:
-          prediction   : song name, or None if no candidate is confident enough
-          confident    : bool
-          top_score    : winning vote count (0 if no candidates at all)
-          margin       : top_score / runner_up_score (float('inf') if no runner-up)
-          ranked       : top_k (song, score) list
-          offsets_per_song, best_offset : for plotting
-          timing       : {"lookup_ms":..., "scoring_ms":...}
-        """
+        
         min_votes = self.MIN_VOTES if min_votes is None else min_votes
         min_margin = self.MIN_MARGIN if min_margin is None else min_margin
 
@@ -177,8 +165,7 @@ class Database:
 
 def fingerprint_signal_timed(signal, sr, window_seconds=0.025, amp_min_db=-40,
                               neighborhood=20, fan_value=8, max_dt=4.0):
-    """Same as fingerprint_signal(paired=True) but also returns a timing
-    breakdown (ms) per stage, for the app's pipeline-timing display."""
+   
     t0 = time.perf_counter()
     f, t, Sxx_db = compute_spectrogram(signal, sr, window_seconds=window_seconds)
     t1 = time.perf_counter()
@@ -203,7 +190,7 @@ def fingerprint_signal_timed(signal, sr, window_seconds=0.025, amp_min_db=-40,
 
 def fingerprint_signal(signal, sr, window_seconds=0.025, amp_min_db=-40,
                         neighborhood=20, fan_value=8, max_dt=4.0, paired=True):
-    """Run spectrogram -> constellation -> hashes in one shot."""
+    
     f, t, Sxx_db = compute_spectrogram(signal, sr, window_seconds=window_seconds)
     peaks_idx = find_peaks_2d(Sxx_db, amp_min_db=amp_min_db, neighborhood=neighborhood)
     constellation = peaks_to_constellation(peaks_idx, f, t)
