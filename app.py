@@ -91,11 +91,7 @@ tab_library, tab_identify, tab_batch = st.tabs(["📚 Library", "🔍 Identify",
 
 with tab_library:
     st.markdown('<div class="eyebrow">Library</div>', unsafe_allow_html=True)
-    st.info(
-        "Song indexing is managed offline (`build_database.py`) — this tab is "
-        "read-only. Drop a clip in the **Identify** tab to test the library.",
-        icon="ℹ️",
-    )
+    
     st.markdown(f'<div class="eyebrow">In the database — {len(db.song_names)} songs</div>',
                 unsafe_allow_html=True)
 
@@ -273,10 +269,7 @@ with tab_batch:
     st.subheader("Identify many clips at once")
     st.caption(
         "Upload a set of query clips. Each is identified against the currently indexed "
-        "library, and the results are written to a standardised `results.csv` with columns "
-        "`filename, prediction`. `prediction` is the matched track's filename without its "
-        f"extension, or **none** when no candidate clears the confidence threshold "
-        f"(≥{db.MIN_VOTES} votes, ≥{db.MIN_MARGIN}× the runner-up)."
+        "library, and the results are written to a standardised `results.csv`."
     )
 
     uploaded_files = st.file_uploader(
